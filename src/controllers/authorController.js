@@ -39,8 +39,8 @@ const createAuthor = async function(req, res) {
 
 let loginAuthor = async function (req,res) {
     try {
-        let email = req.headers.email;
-        let password = req.headers.password;
+        let email = req.body.email;
+        let password = req.body.password;
 
         if(!email) return res.status(400).send({status: false, msg: 'please provide valid email id'});
 
