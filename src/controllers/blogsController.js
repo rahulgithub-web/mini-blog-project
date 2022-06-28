@@ -175,29 +175,25 @@ const deletedBlog = async function (req, res) {
 };
 
 // ============> Delete Blogs with query params <==========
-let deletedByQueryParams = async function (req, res) {
-  try {
-    let data = req.query;
+const deleteBlogByParams = async function (req, res) {
+   try {
 
-    if (data) {
-      let deletedBlogsFinal = await blog.findOneAndDelete(
-        { $in: data },
-        { $set: { isDeleted: true }, deletedAt: Date.now() },
-        { new: true }
-      );
+      let getobject = req.query
 
-      res.status(200).send({
-        status: true,
-        result: deletedBlogsFinal,
-        msg: "All matched data has been deleted",
-      });
-    } else {
-      res.status(400).send({ status: false, msg: "Bad Request" });
-    }
-  } catch (err) {
-    res.status(500).send({ status: false, msg: err.message });
-  }
-};
+      let updateData = await blog.updateMany(
+         { $and: [{ authorId: req.body.tokenId }, { isDeleted: false }, getobject] }, { $set: { isDeleted: true, deletedAt: Date.now() } },
+         { new: true })
+
+      if (!updateData.modifiedCount)
+
+         return res.staus(400).send({ status: false, msg: "no such blog" })
+
+      res.status(200).send({ status: true, msg: "numbers of delated blog= " + updateData.modifiedCount })
+   }
+   catch (err) {
+      res.status(500).send({ status: false, msg: err.message })
+   }
+}
 
 module.exports.getBlogs = getBlogs;
 module.exports.deletedBlog = deletedBlog;
