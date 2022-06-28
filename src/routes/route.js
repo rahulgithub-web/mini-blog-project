@@ -5,23 +5,29 @@ const blogController = require("../controllers/blogsController");
 const middleware = require("../middlewares/auth")
 
 let { authentication, authorization } = middleware;
+let { createBlog, getBlogs, updatedBlogs, deletedBlog, deletedByQueryParams } = blogController;
+let { createAuthor, loginAuthor } = authorController;
+
 // ---------- Create Author Api ---------
-router.post("/createAuthor", authorController.createAuthor);
+router.post("/authors", createAuthor);
 
 // ---------- Login Author Api -----------
-router.post("/login", authorController.loginAuthor);
+router.post("/login", loginAuthor);
 
 // ---------- Create Blog Api ------------ 
-router.post("/createBlog", authentication ,blogController.createBlog);
+router.post("/blogs", authentication, createBlog);
 
 // ---------- Get Blogs Api -------------
-router.get("/getBlogs" ,blogController.getBlogs);
+router.get("/blogs" , authentication ,getBlogs);
 
-// ------- Get Updated Blogs using blogId ------
-router.put("/getBlogs/:blogId", authorization ,blogController.updatedBlogs);
+// -------- Get Updated Blogs using blogId ------
+router.put("/blogs/:blogId", authentication, authorization, updatedBlogs);
 
 // ---------- Delete Api ---------------
-router.delete("/blogs/:blogId", authorization, blogController.deletedBlog);
+router.delete("/blogs/:blogId", authentication, authorization, deletedBlog);
 
 // ---------- Delete Blogs By Query ----------
-router.delete("/blogs", authorization ,blogController.deletedByQueryParams);
+router.delete("/blogs", authentication, authorization, deletedByQueryParams);
+
+// ----------------------------------- 
+module.exports = router;
