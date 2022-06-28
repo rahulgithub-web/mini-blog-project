@@ -47,7 +47,7 @@ let loginAuthor = async function (req,res) {
         if(!password) return res.status(400).send({status: false, msg: 'please provide valid password'})
 
         let authors = await author.findOne({ email: email, password: password });
-        if(!authors) return res.send({
+        if(!authors) return res.status(400).send({
         status: false, msg: "email or the password is not correct",
     });
 
@@ -59,7 +59,6 @@ let loginAuthor = async function (req,res) {
         },
         "functionUp-project1"
     );
-    res.setHeader('x-api-key', token);
     console.log(token);
     res.status(201).send({ status: true, data: {token} });
     } catch(err) {
