@@ -21,12 +21,6 @@ const blogSchema = new mongoose.Schema({
         required: true,
     },
     subCategory : [String],
-    createdAt: {
-        type: Date,
-    },
-    updatedAt: {
-        type: Date,
-    },
     deletedAt: {
         type: Date,
     },
