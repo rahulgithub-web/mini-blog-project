@@ -17,7 +17,7 @@ router.post('/login', loginAuthor);
 // ======> Create Blog Api <===========
 router.post('/blogs', authenticate, createBlog);
 
-// ======> Create Blog Api <===========
+// ======> Get Blogs Api <=============
 router.get('/blogs',authenticate, getBlogs);
 
 // ======> Update Blogs Api <==========
