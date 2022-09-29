@@ -10,7 +10,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-let url="process.env.MONGO_URL";
+let url=process.env.MONGO_URL;
 let PORT=process.env.PORT||5000;
 
 mongoose.connect(url,{useNewUrlParser:true}).then(()=> console.log("MongoDb is connected")).catch((err)=> console.log(err));
