@@ -29,4 +29,9 @@ router.delete('/blogs/:blogId',authenticate, authorize, deleteBlog);
 // ======> Delete Blogs By Query Params <=======
 router.delete('/blogs',authenticate, authorizeByQuery, deleteByQuery);
 
+// ======> If no route matched <=======
+router.all("/*", async function (req, res) {
+    res.status(404).send({ status: false, msg: "Page Not Found!"});
+});
+
 module.exports= router;
